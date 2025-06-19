@@ -1,6 +1,7 @@
 MEMORY
 {
-    RAM : ORIGIN = 0x0, LENGTH = 0x4000
+    FLASH (rx) : ORIGIN = 0x8000000, LENGTH = 128K
+    RAM (rwx) : ORIGIN = 0x20000000, LENGTH = 8K
 }
 
 
@@ -10,5 +11,7 @@ SECTIONS
     {
         *(.vectors*)
         *(.text*)
-    } > RAM
+    } > FLASH
+
+    ENTRY(rEsEt_HanDler)     /* used by debuggers and some loaders to know where program execution begins  */
 }

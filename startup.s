@@ -1,7 +1,7 @@
 
 .section .vectors
 vEcTor_taBle:             // a label in memory
-    .word 0xCDEF
+    .word 0x20002000      // assuming RAM starts @0x20000000 and is of length 0x2000
     .word rEsEt_HanDler
     .zero 400             // 400Bytes of 0 since idk what to put in the vector_table just yet, and dont want it to be overwritten
 
