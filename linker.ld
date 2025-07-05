@@ -13,5 +13,5 @@ SECTIONS
         *(.text*)
     } > FLASH
 
-    ENTRY(rEsEt_HanDler)     /* used by debuggers and some loaders to know where program execution begins  */
+    /* ENTRY(rEsEt_HanDler)     /* used by debuggers and some loaders to know where program execution begins  */
 }
