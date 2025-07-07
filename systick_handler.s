@@ -4,6 +4,27 @@
 
 .global systick_Handler
 
-systick_Handler:      
-    add r4, r4, #0x1  // serves as a count of systick expiry
-    bx lr             // standard instruction that triggers HW exception-return sequence on ARM M processors
+systick_Handler:
+
+// at this point, regs r0-r3, r12, lr, pc, and xPSR AKA Caller-saved regs will already be saved to the stack by the HW
+
+// manual save of the remainings CPU regs (AKA Callee-saved regs):
+    push {r4-r7}
+
+    mov r0, r8
+    mov r1, r9
+    mov r2, r10
+    mov r3, r11
+    push {r0-r3}      // bc push/pop do not support high regs
+
+manual_restore:
+    pop {r0-r3}
+    mov r8, r0
+    mov r9, r1
+    mov r10, r2
+    mov r11, r3
+
+    pop {r4-r7}
+
+
+    bx lr             // triggers Caller-saved regs to be restored from the stack by the HW
