@@ -6,7 +6,7 @@
 
 systick_Handler:
 
-// at this point, regs r0-r3, r12, lr, pc, and xPSR AKA Caller-saved regs will already be saved to the stack by the HW
+// at this point, regs r0-r3, r12, lr, pc, and xPSR (AKA Caller-saved regs) will already be saved to the stack by the HW
 
 // manual save of the remainings CPU regs (AKA Callee-saved regs):
     push {r4-r7}
@@ -17,7 +17,8 @@ systick_Handler:
     mov r3, r11
     push {r0-r3}      // bc push/pop do not support high regs
 
-manual_restore:
+manual_restore:       // break here and set $sp to address of desired stack using gdb
+// in the reverse order of save
     pop {r0-r3}
     mov r8, r0
     mov r9, r1

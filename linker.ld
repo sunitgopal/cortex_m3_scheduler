@@ -13,5 +13,10 @@ SECTIONS
         *(.text*)
     } > FLASH
 
+    .data :
+    {
+        *(.data)
+    } > RAM
+
     /* ENTRY(rEsEt_HanDler)     /* used by debuggers and some loaders to know where program execution begins  */
 }
