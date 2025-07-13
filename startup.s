@@ -33,5 +33,4 @@ reset_Handler:           // a label in memory
     mov r3, #0x07
     str r3, [r0]      // Processor clock; Enable Systick Exception; Enable counter
 
-    mov r4, #0x0      // using r4 BCZ it isn't touched during exception entry, exit; increment it inside systick_Handler
     b .               // no need to save to Link Register, hence got rid of bl

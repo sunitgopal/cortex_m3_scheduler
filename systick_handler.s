@@ -19,6 +19,8 @@ systick_Handler:
 
 manual_restore:       // break here and set $sp to address of desired stack using gdb
 // in the reverse order of save
+    ldr r0, =0x200001f8
+    mov sp, r0
     pop {r0-r3}
     mov r8, r0
     mov r9, r1

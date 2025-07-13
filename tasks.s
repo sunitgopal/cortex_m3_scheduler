@@ -34,10 +34,23 @@ task2:
     b task2
 
 
+
+// task3
+.section .text
+    .align 1
+    .type task3, %function
+
+.global task3
+
+task3:
+    add r3, r3, #0x01
+    b task3
+
+
 // stacks
 
 .section .data
-    .align 2
+    .p2align 3
 
 stack0:
     .word 0x08
@@ -61,7 +74,7 @@ stack0:
 
 
 .section .data
-    .align 2
+    .p2align 3
 
 stack1:
     .word 0x18
@@ -85,7 +98,7 @@ stack1:
 
 
 .section .data
-    .align 2
+    .p2align 3
 
 stack2:
     .word 0x28
@@ -103,5 +116,30 @@ stack2:
     .word 0x2c
     .word 0xaa1          // LR
     .word task2          // PC
+    .word 0x01000000     // xPSR
+    .zero 100
+
+
+
+
+.section .data
+    .p2align 3
+
+stack3:
+    .word 0x38
+    .word 0x39
+    .word 0x3a
+    .word 0x3b
+    .word 0x34
+    .word 0x35
+    .word 0x36
+    .word 0x37
+    .word 0x30
+    .word 0x31
+    .word 0x32
+    .word 0x33
+    .word 0x3c
+    .word 0xaa1          // LR
+    .word task3          // PC
     .word 0x01000000     // xPSR
     .zero 100
