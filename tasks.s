@@ -34,7 +34,6 @@ task2:
     b task2
 
 
-
 // task3
 .section .text
     .align 1
