@@ -1,3 +1,6 @@
+.syntax unified     /* Use modern Thumb-2 syntax */
+
+
 .section .vectors
 vector_table:                 // Vector table base (goes at start of FLASH)
     .word 0x20002000          // Initial MSP: top of 8 KB SRAM at 0x20000000

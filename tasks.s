@@ -1,10 +1,13 @@
+/* tasks.s - The User Application */
+
+.syntax unified     /* Use modern Thumb-2 syntax */
+
 // task0
 .section .text
-    .align 1
+    .p2align 1
     .type task0, %function
 
 .global task0
-
 task0:
     add r0, r0, #0x01
     b task0
@@ -12,11 +15,10 @@ task0:
 
 // task1
 .section .text
-    .align 1
+    .p2align 1
     .type task1, %function
 
 .global task1
-
 task1:
     add r1, r1, #0x01
     b task1
@@ -24,11 +26,10 @@ task1:
 
 // task2
 .section .text
-    .align 1
+    .p2align 1
     .type task2, %function
 
 .global task2
-
 task2:
     add r2, r2, #0x01
     b task2
@@ -36,34 +37,25 @@ task2:
 
 // task3
 .section .text
-    .align 1
+    .p2align 1
     .type task3, %function
 
 .global task3
-
 task3:
     add r3, r3, #0x01
     b task3
 
 
-// stacks
+// Task-stacks
 
 .section .data
     .p2align 3
 
+.global stack0
 stack0:
-    .word 0x08
-    .word 0x09
-    .word 0x0a
-    .word 0x0b
-    .word 0x04
-    .word 0x05
-    .word 0x06
-    .word 0x07
-    .word 0x00
-    .word 0x01
-    .word 0x02
-    .word 0x03
+    .word 0x08, 0x09, 0x0a, 0x0b
+    .word 0x04, 0x05, 0x06, 0x07
+    .word 0x00, 0x01, 0x02, 0x03
     .word 0x0c
     .word 0xaa1          // LR
     .word task0          // PC
@@ -75,6 +67,7 @@ stack0:
 .section .data
     .p2align 3
 
+.global stack1
 stack1:
     .word 0x18
     .word 0x19
@@ -99,6 +92,7 @@ stack1:
 .section .data
     .p2align 3
 
+.global stack2
 stack2:
     .word 0x28
     .word 0x29
@@ -120,10 +114,10 @@ stack2:
 
 
 
-
 .section .data
     .p2align 3
 
+.global stack3
 stack3:
     .word 0x38
     .word 0x39

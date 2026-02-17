@@ -1,3 +1,5 @@
+.syntax unified     /* Use modern Thumb-2 syntax */
+
 // SysTick register equates (Cortex-M system timer)
     .equ CSR,     0xE000E010    // Control and status
     .equ RVR,     0xE000E014    // Reload value
