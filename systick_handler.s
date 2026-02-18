@@ -16,21 +16,22 @@ systick_Handler:
     stmdb sp!, {r4-r11}   // Save R4-R11 to the current stack (decrement SP)
 
 /* ---------------------------------------------------------
-        2. Store current-SP
+        2. STORE CURRENT SP
             /* task_sps[current_task] = SP
        --------------------------------------------------------- */
 
     ldr r0, =task_sps       /* R0 = Base addr of task_sps Array */
     ldr r1, =current_task   /* R1 = Addr of current_task variable */
-    ldr r2, [r1]            /* R2 = Val. of current_task variable i.e., curr-index */
+    ldr r2, [r1]            /* R2 = Val. of current_task variable i.e., index */
 
         /* Calculate addr of where current-SP must be stored in task_sps Array*/
-    lsl r3, r2, #2          /* R3 = curr-index * 4 */
+    lsl r3, r2, #2          /* R3 = index*4   */
     str sp, [r0, r3]        /* Store current-SP into task_sps */
 
 
 /* ---------------------------------------------------------
-        3. Incrememnt current_task to Choose next task
+        3. CHOOSE NEXT TASK (Round-Robin)
+        Increment current_task to Choose next task
         /* current_task = (current_task + 1 ) & 3
        --------------------------------------------------------- */
 
@@ -40,7 +41,7 @@ systick_Handler:
 
 
 /* ---------------------------------------------------------
-        4. Load next-SP
+        4. LOAD NEXT SP
         /* SP = task_sps[current_task]
        --------------------------------------------------------- */
 
