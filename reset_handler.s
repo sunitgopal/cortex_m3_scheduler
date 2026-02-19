@@ -13,22 +13,25 @@
 /* Reset Handler */
 
 .section .text
-    .align 1                  // Halfword-align reset_Handler for valid Thumb fetch
-    .type reset_Handler, %function   // Mark symbol as a function for tools
+.p2align 1                  // Halfword-align reset_Handler for valid Thumb fetch
+.type reset_Handler, %function   // Mark symbol as a function for tools
 
 .global reset_Handler
-
 reset_Handler:
-// Bind symbolic names to SysTick registers and the reload value
+
+    /* 1. DISABLE INTERRUPTS (The "Lock") */
+    cpsid i                 // PRIMASK = 1 (Disable Interrupts)
+
+    /* 2. Configure SysTick */
     ldr r0, =CSR
     ldr r1, =RVR
     ldr r2, =CVR
     ldr r3, =timeout
 
-// Program SysTick: set reload, clear current, enable with core clock + interrupt
-    str r3, [r1]              // RVR <- timeout (reload on wrap)
-    str r3, [r2]              // Any write clears CVR and COUNTFLAG
-    mov r3, #0x07             // CLKSOURCE=core, TICKINT=1, ENABLE=1
-    str r3, [r0]              // CSR <- enable SysTick interrupt + counter
+    str r3, [r1]            // RVR <- timeout
+    str r3, [r2]            // Clear CVR
+    mov r3, #0x07           // CLKSOURCE=core, TICKINT=1, ENABLE=1
+    str r3, [r0]            // CSR <- enable (Counter starts, but interrupt is blocked by PRIMASK!)
 
-    b .                       // Park the CPU here; SysTick drives all activity
+    /* 3. Launch the Kernel (Never Return) */
+    bl os_kernel_launch
